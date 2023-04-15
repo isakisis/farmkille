@@ -7,7 +7,6 @@ public class CharacterController2D : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
     [SerializeField] float speed = 2f;
-    Vector2 motionVector;
     Animator animator;
 
     void Awake()
@@ -18,21 +17,14 @@ public class CharacterController2D : MonoBehaviour
 
     private void Update()
     {
-        motionVector = new Vector2(
+        Vector2 motionVector = new Vector2(
             Input.GetAxisRaw("Horizontal"), 
             Input.GetAxisRaw("Vertical")
-        );
+        ).normalized;
+
+        rigidbody2d.velocity = motionVector * speed;
+
         animator.SetFloat("horizontal", Input.GetAxisRaw("Horizontal"));
         animator.SetFloat("vertical", Input.GetAxisRaw("Vertical"));
-    }
-
-    void FixedUpdate()
-    {
-        Move();        
-    }
-
-    private void Move()
-    {
-        rigidbody2d.velocity = motionVector * speed;
     }
 }
