@@ -2436,7 +2436,7 @@ GameObject:
   - component: {fileID: 1938322472}
   - component: {fileID: 1938322474}
   m_Layer: 0
-  m_Name: comrade_1
+  m_Name: comrade1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2504,7 +2504,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300012, guid: b62a8e74a325e4493956501c30341010, type: 3}
+  m_Sprite: {fileID: -1090801802, guid: 89531db2e76f349c8bb813efffd2a695, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
