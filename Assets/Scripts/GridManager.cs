@@ -11,8 +11,14 @@ public class GridManager : MonoBehaviour
     [SerializeField] Tilemap barn;
 
     [SerializeField] GameObject crop;
+    [SerializeField] GameObject scarecrow;
 
     Dictionary<Vector3Int, GameObject> locationToEntity;
+
+    void Start()
+    {
+        AddScarecrowAt(new Vector3Int(1, 1));
+    }
 
     GridManager() {
         locationToEntity = new Dictionary<Vector3Int, GameObject>();
@@ -29,6 +35,14 @@ public class GridManager : MonoBehaviour
         CropController cropController = newObject.GetComponent<CropController>();
         cropController.objectsNonColliding = objectsNonColliding;
         cropController.gridManager = this;
+
+        locationToEntity.Add(location, newObject);
+    }
+
+    public void AddScarecrowAt(Vector3Int location)
+    {
+        Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
+        GameObject newObject = Instantiate(scarecrow, worldLocation, Quaternion.identity);
 
         locationToEntity.Add(location, newObject);
     }
