@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 37868539}
   m_Layer: 0
   m_Name: barn
-  m_TagString: Untagged
+  m_TagString: GloballyVisibleBarn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,7 +180,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: c9131995e8b6217a7a9c188b518e0038, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -550,7 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9739ed0db6d14ca9acda7af508d5a0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRabbit: {fileID: 8700402605540912783, guid: 070d40bc7e82c47ff8abfa0becbbc881, type: 3}
+  enemyRabbit: {fileID: 9074366212673338368, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
 --- !u!4 &1128056270
 Transform:
   m_ObjectHideFlags: 0
@@ -3759,3 +3759,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122440508}
   m_CullTransparentMesh: 1
+--- !u!1001 &382970813063926514
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2201591344050378197, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: barn
+      value: 
+      objectReference: {fileID: 37868538}
+    - target: {fileID: 2201591344050378197, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: speed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105708200735121767, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105708200735121767, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074366212673338368, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_Name
+      value: Rabbit
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074366212673338368, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+      propertyPath: m_TagString
+      value: GloballyVisible
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
