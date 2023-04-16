@@ -8,9 +8,9 @@ public class CropController : MonoBehaviour
     [SerializeField] public GridManager gridManager;
     [SerializeField] public Tilemap objectsNonColliding;
 
-    [SerializeField] TileBase crop0;
-    [SerializeField] TileBase crop1;
-    [SerializeField] TileBase crop2;
+    [SerializeField] Tile crop0;
+    [SerializeField] Tile crop1;
+    [SerializeField] Tile crop2;
 
     Vector3Int? tileLocation;
     float growthTime = 0;
@@ -21,6 +21,7 @@ public class CropController : MonoBehaviour
         PickUpBehaviour pickUpBehaviour = GetComponent<PickUpBehaviour>();
         pickUpBehaviour.pickUp = PickedUp;
         pickUpBehaviour.putDown = Placed;
+        pickUpBehaviour.getSprite = GetSprite;
         tileLocation = gridManager.WorldToCell(transform.position);
         if (tileLocation.HasValue) {
             objectsNonColliding.SetTile(tileLocation.Value, crop0);
@@ -31,9 +32,9 @@ public class CropController : MonoBehaviour
     void Update()
     {
         if (tileLocation.HasValue) {
-            TileBase prevTile = TileToDrawForTime(growthTime);
+            Tile prevTile = TileToDrawForTime(growthTime);
             growthTime += Time.deltaTime; 
-            TileBase currTile = TileToDrawForTime(growthTime);
+            Tile currTile = TileToDrawForTime(growthTime);
 
             if (currTile != prevTile) {
                 objectsNonColliding.SetTile(tileLocation.Value, currTile);
@@ -45,7 +46,7 @@ public class CropController : MonoBehaviour
         }
     }
 
-    TileBase TileToDrawForTime(float time) {
+    Tile TileToDrawForTime(float time) {
         if (time > 9) {
             return crop2;
         } else if (time > 6) {
@@ -55,6 +56,10 @@ public class CropController : MonoBehaviour
         } else {
             return crop0;
         }
+    }
+
+    Sprite GetSprite() {
+        return TileToDrawForTime(growthTime).sprite;
     }
 
     void PickedUp() {
