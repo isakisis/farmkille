@@ -51,16 +51,16 @@ public class RabbitController : MonoBehaviour
 
                 Vector2 motionVector = new Vector2(
                     horizontal + Random.Range(-1f, 3f),
-                    vertical + Random.Range(-1f, 3f)
+                    vertical + Random.Range(-1f, 2f)
                 ).normalized;
 
                 rigidbody2d.velocity = motionVector * speed;
-                idleDelay = 1.0f + Random.Range(-0.5f, 2);
+                idleDelay = 0.5f + Random.Range(-0.5f, 1f);
             } else {
                 horizontal = 0;
                 vertical = 0;
                 rigidbody2d.velocity = stationaryVector;
-                idleDelay = 1.0f + Random.Range(-1f, 2);
+                idleDelay = 1.0f + Random.Range(-1f, 2f);
             }
 
             animator.SetFloat("horizontal", horizontal);
