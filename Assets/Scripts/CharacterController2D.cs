@@ -20,7 +20,11 @@ public class CharacterController2D : MonoBehaviour
     public AudioClip pickupSfx;
     public AudioClip deliverSfx;
 
-    [SerializeField] float pickUpOffset = -0.5f;
+    public Tilemap selectionTilemap;
+    public Vector3Int lastSelection;
+    public Tile selectionTile;
+
+    [SerializeField] float pickUpOffset = -0.25f;
 
     public ScoreManager scoreManager;
 
@@ -38,14 +42,21 @@ public class CharacterController2D : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        
         Vector2 motionVector = new Vector2(
             horizontal, 
             vertical
         ).normalized;
 
+        Vector3 offset = 0.5f * lastMotionVector.normalized;
+        Vector3Int locationOnMap = gridManager.WorldToCell(new Vector3(transform.position.x, transform.position.y + pickUpOffset) + offset);
+
+        if (locationOnMap != lastSelection) {
+            selectionTilemap.SetTile(lastSelection, null);
+            selectionTilemap.SetTile(locationOnMap, selectionTile);
+        }
+        lastSelection = locationOnMap;
+
         if (gridManager != null) {
-            Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
             //Debug.Log(gridManager.isLocationBarn(locationOnMap));
         }
 
@@ -53,14 +64,12 @@ public class CharacterController2D : MonoBehaviour
             if (heldItem) {
                 InteractionBehaviour interaction = heldItem.GetComponent<InteractionBehaviour>();
                 if (interaction != null) {
-                    Vector3Int locationOnMap = gridManager.WorldToCell(new Vector3(transform.position.x, transform.position.y + pickUpOffset));
                     interaction.Action(locationOnMap);
                 }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Vector3Int locationOnMap = gridManager.WorldToCell(new Vector3(transform.position.x, transform.position.y + pickUpOffset));
             Debug.Log(locationOnMap);
 
             if (heldItem) {
