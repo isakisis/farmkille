@@ -15,7 +15,7 @@ public class RabbitSpawnManager : MonoBehaviour
 
     IEnumerator EnemySpawn()
     {
-        Boolean spawnEnemies = true
+        Boolean spawnEnemies = true;
         while(spawnEnemies)
         {
             Vector3 spawnVector = new Vector3(Random.Range(-10f, 10f), -6, 0);
