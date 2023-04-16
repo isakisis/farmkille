@@ -19,7 +19,7 @@ public class RabbitController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("GloballyVisibleBarn");
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("Barn");
         if (objs.Length > 0)
         {
             barn = objs[0];
