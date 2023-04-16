@@ -33,6 +33,8 @@ public class CharacterController2D : MonoBehaviour
             Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
             if (gridManager.IsLocationEmpty(locationOnMap)) {
                 gridManager.AddCropAt(locationOnMap);
+            } else {
+                GameObject pickedUp = gridManager.PickUp(locationOnMap);
             }
         };
 
