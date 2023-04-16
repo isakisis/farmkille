@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterController2D : MonoBehaviour
 {
-    Rigidbody2D rigidbody2d;
     [SerializeField] float speed = 2f;
+    [SerializeField] GridManager gridManager;
+
+    Rigidbody2D rigidbody2d;
     Animator animator;
 
     void Awake()
@@ -21,6 +24,13 @@ public class CharacterController2D : MonoBehaviour
             Input.GetAxisRaw("Horizontal"), 
             Input.GetAxisRaw("Vertical")
         ).normalized;
+
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
+            if (gridManager.IsLocationEmpty(locationOnMap)) {
+                gridManager.AddCropAt(locationOnMap);
+            }
+        };
 
         rigidbody2d.velocity = motionVector * speed;
 
