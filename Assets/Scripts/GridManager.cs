@@ -22,6 +22,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] GameObject seedbagSpawnLocation;
     [SerializeField] GameObject hoeSpawnLocation;
 
+    public AudioSource audioSource;
+    public AudioClip plantSeed;
+
     Dictionary<Vector3Int, GameObject> locationToEntity;
 
     void Start()
@@ -48,6 +51,8 @@ public class GridManager : MonoBehaviour
         cropController.gridManager = this;
 
         locationToEntity.Add(location, newObject);
+
+        audioSource.PlayOneShot(plantSeed);
     }
 
     public void AddSeedBagAt(Vector3Int location) {
