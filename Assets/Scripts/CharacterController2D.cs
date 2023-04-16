@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,6 +14,7 @@ public class CharacterController2D : MonoBehaviour
     Animator animator;
     public bool moving;
     GameObject heldItem;
+    SpriteRenderer heldItemSpriteRenderer;
 
     public ScoreManager scoreManager;
 
@@ -20,6 +22,9 @@ public class CharacterController2D : MonoBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();  
         animator = GetComponent<Animator>();  
+        heldItemSpriteRenderer = GetComponentsInChildren<SpriteRenderer>(true).Where(
+            comp => comp.name == "HeldItem"
+        ).First();
     }
 
     private void Update()
@@ -50,6 +55,8 @@ public class CharacterController2D : MonoBehaviour
                     bool succeeded = gridManager.PutDown(locationOnMap, heldItem);
                     if (succeeded) {
                         heldItem = null;
+                        heldItemSpriteRenderer.sprite = null;
+                        heldItemSpriteRenderer.enabled = false;
                     }
                 } 
             } else {
@@ -57,6 +64,14 @@ public class CharacterController2D : MonoBehaviour
                     gridManager.AddCropAt(locationOnMap);
                 } else if (!heldItem) {
                     heldItem = gridManager.PickUp(locationOnMap);
+                    if (heldItem) {
+                        PickUpBehaviour pickUpBehaviour = heldItem.GetComponent<PickUpBehaviour>();
+                        Sprite s = pickUpBehaviour.getSprite();
+                        Debug.Log("heldItemSpriteRenderer.sprite =");
+                        Debug.Log(s);
+                        heldItemSpriteRenderer.sprite = s;
+                        heldItemSpriteRenderer.enabled = true;
+                    }
                 }
             }
         };
