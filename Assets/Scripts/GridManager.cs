@@ -17,7 +17,7 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        AddScarecrowAt(new Vector3Int(1, 1));
+        AddScarecrowAt(new Vector3Int(-5, -1));
     }
 
     GridManager() {
@@ -43,6 +43,9 @@ public class GridManager : MonoBehaviour
     {
         Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
         GameObject newObject = Instantiate(scarecrow, worldLocation, Quaternion.identity);
+        ScarecrowController scarecrowController = newObject.GetComponent<ScarecrowController>();
+        scarecrowController.objectsNonColliding = objectsNonColliding;
+        scarecrowController.gridManager = this;
 
         locationToEntity.Add(location, newObject);
     }
