@@ -869,10 +869,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6105708200735121767, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 9074366212673338368, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
       propertyPath: m_Name
       value: Rabbit

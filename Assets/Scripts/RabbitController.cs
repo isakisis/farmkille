@@ -46,12 +46,12 @@ public class RabbitController : MonoBehaviour
 
                 Vector3 currentPos = transform.position;
                 Vector3 direction = barn.transform.position - currentPos;
-                horizontal = (xProbability > 0.4) ? direction.x * Random.Range(-0.2f, 1.2f) : 0f;
-                vertical = (yProbability > 0.4) ? direction.y * Random.Range(-0.2f, 1.2f) : 0f;
+                horizontal = (xProbability > 0.4) ? direction.x * (1 + Random.Range(-0.5f, 1)) : 0f;
+                vertical = (yProbability > 0.4) ? direction.y * (1 + Random.Range(-0.5f, 1)) : 0f;
 
                 Vector2 motionVector = new Vector2(
-                    horizontal,
-                    vertical
+                    horizontal + Random.Range(-1f, 3f),
+                    vertical + Random.Range(-1f, 3f)
                 ).normalized;
 
                 rigidbody2d.velocity = motionVector * speed;
