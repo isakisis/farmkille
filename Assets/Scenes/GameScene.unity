@@ -290,11 +290,15 @@ MonoBehaviour:
   objectsNonColliding: {fileID: 311149517}
   objectsColliding: {fileID: 2050212359}
   barn: {fileID: 1828899470}
+  dirt: {fileID: 11400000, guid: eb92eb527f5c2cc6c8f57f9c6feddf75, type: 2}
+  soil: {fileID: 11400000, guid: c881afbbc9f56100b9cc2328f5d9b4f0, type: 2}
   crop: {fileID: 2459205759900546329, guid: 4107ecce30fdd778d9c5840d3e5f9475, type: 3}
   scarecrow: {fileID: 5109610987318998459, guid: 0d4d53ea546b7421ab49ae04c5703d71, type: 3}
   seedBag: {fileID: 5631622422698589842, guid: 435251dd71bf88ae0a68ae01bb991fbf, type: 3}
+  hoe: {fileID: 5631622422698589842, guid: f4f5b97076292f999b91dd3ad4d4a3f6, type: 3}
   scarecrowSpawnLocation: {fileID: 60091357}
   seedbagSpawnLocation: {fileID: 502611411}
+  hoeSpawnLocation: {fileID: 2086323572}
 --- !u!4 &156744803
 Transform:
   m_ObjectHideFlags: 0

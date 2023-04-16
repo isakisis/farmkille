@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5631622422698589840}
   - component: {fileID: 5631622422698589843}
   - component: {fileID: 233799130216800110}
-  - component: {fileID: -2170758375162280945}
+  - component: {fileID: 554992348080331524}
   m_Layer: 0
-  m_Name: SeedBag
+  m_Name: Hoe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b913c598b630774780da3ad8c25671e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2170758375162280945
+--- !u!114 &554992348080331524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,9 +83,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5631622422698589842}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f9186c75917ce5d8ac134652011de83, type: 3}
+  m_Script: {fileID: 11500000, guid: 07627c6bc1590f2eda2e5b32e579048e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gridManager: {fileID: 0}
   objectsNonColliding: {fileID: 0}
-  seedBagTile: {fileID: 11400000, guid: 0bce8471dd93201689daeb5b0b8ddb3c, type: 2}
+  hoeTile: {fileID: 11400000, guid: 5fa12d6a89564f63f902bc15b7ca820e, type: 2}
