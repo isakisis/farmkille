@@ -8,10 +8,28 @@ public class GridManager : MonoBehaviour
     [SerializeField] Tilemap ground;
     [SerializeField] Tilemap objectsNonColliding;
     [SerializeField] Tilemap objectsColliding;
+    [SerializeField] Tilemap barn;
+
+    [SerializeField] TileBase dirt;
+    [SerializeField] TileBase soil;
 
     [SerializeField] GameObject crop;
+    [SerializeField] GameObject scarecrow;
+    [SerializeField] GameObject seedBag;
+    [SerializeField] GameObject hoe;
+
+    [SerializeField] GameObject scarecrowSpawnLocation;
+    [SerializeField] GameObject seedbagSpawnLocation;
+    [SerializeField] GameObject hoeSpawnLocation;
 
     Dictionary<Vector3Int, GameObject> locationToEntity;
+
+    void Start()
+    {
+        AddScarecrowAt(WorldToCell(scarecrowSpawnLocation.transform.position));
+        AddSeedBagAt(WorldToCell(seedbagSpawnLocation.transform.position));
+        AddHoeAt(WorldToCell(hoeSpawnLocation.transform.position));
+    }
 
     GridManager() {
         locationToEntity = new Dictionary<Vector3Int, GameObject>();
@@ -30,6 +48,43 @@ public class GridManager : MonoBehaviour
         cropController.gridManager = this;
 
         locationToEntity.Add(location, newObject);
+    }
+
+    public void AddSeedBagAt(Vector3Int location) {
+        Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
+        GameObject newObject = Instantiate(seedBag, worldLocation, Quaternion.identity);
+        SeedBagController seedBagController = newObject.GetComponent<SeedBagController>();
+        seedBagController.objectsNonColliding = objectsNonColliding;
+        seedBagController.gridManager = this;
+
+        locationToEntity.Add(location, newObject);
+    }
+
+    public void AddHoeAt(Vector3Int location) {
+        Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
+        GameObject newObject = Instantiate(hoe, worldLocation, Quaternion.identity);
+        HoeController hoeController = newObject.GetComponent<HoeController>();
+        hoeController.objectsNonColliding = objectsNonColliding;
+        hoeController.gridManager = this;
+
+        locationToEntity.Add(location, newObject);
+    }
+
+    public void AddScarecrowAt(Vector3Int location)
+    {
+        Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
+        GameObject newObject = Instantiate(scarecrow, worldLocation, Quaternion.identity);
+        ScarecrowController scarecrowController = newObject.GetComponent<ScarecrowController>();
+        scarecrowController.objectsNonColliding = objectsNonColliding;
+        scarecrowController.gridManager = this;
+
+        locationToEntity.Add(location, newObject);
+    }
+
+    public void ChangeDirtToSoil(Vector3Int location) {
+        if (ground.GetTile(location) == dirt) {
+            ground.SetTile(location, soil);
+        }
     }
 
     public GameObject PickUp(Vector3Int location) {
@@ -61,5 +116,10 @@ public class GridManager : MonoBehaviour
 
     public bool IsLocationEmpty(Vector3Int location) {
         return !objectsNonColliding.HasTile(location) && !objectsColliding.HasTile(location);
+    }
+
+    public bool isLocationBarn(Vector3Int location) {
+        return barn.HasTile(location);
+
     }
 }

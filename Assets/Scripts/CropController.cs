@@ -8,44 +8,37 @@ public class CropController : MonoBehaviour
     [SerializeField] public GridManager gridManager;
     [SerializeField] public Tilemap objectsNonColliding;
 
-    [SerializeField] TileBase crop0;
-    [SerializeField] TileBase crop1;
-    [SerializeField] TileBase crop2;
+    [SerializeField] Tile crop0;
+    [SerializeField] Tile crop1;
+    [SerializeField] Tile crop2;
 
-    Vector3Int? tileLocation;
     float growthTime = 0;
+    TiledObjectPickupBehaviour tiledObjectPickupBehaviour;
 
     // Start is called before the first frame update
     void Start()
     {
-        PickUpBehaviour pickUpBehaviour = GetComponent<PickUpBehaviour>();
-        pickUpBehaviour.pickUp = PickedUp;
-        pickUpBehaviour.putDown = Placed;
-        tileLocation = gridManager.WorldToCell(transform.position);
-        if (tileLocation.HasValue) {
-            objectsNonColliding.SetTile(tileLocation.Value, crop0);
-        }
+        tiledObjectPickupBehaviour = GetComponent<TiledObjectPickupBehaviour>();
+        tiledObjectPickupBehaviour.tilemap = objectsNonColliding;
+        tiledObjectPickupBehaviour.placed = true;
+        tiledObjectPickupBehaviour.SetTile(crop0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (tileLocation.HasValue) {
-            TileBase prevTile = TileToDrawForTime(growthTime);
+        if (tiledObjectPickupBehaviour.placed) {
+            Tile prevTile = TileToDrawForTime(growthTime);
             growthTime += Time.deltaTime; 
-            TileBase currTile = TileToDrawForTime(growthTime);
+            Tile currTile = TileToDrawForTime(growthTime);
 
             if (currTile != prevTile) {
-                objectsNonColliding.SetTile(tileLocation.Value, currTile);
-
-                if (currTile == null) {
-                    Destroy(gameObject);
-                }
+                tiledObjectPickupBehaviour.SetTile(currTile);
             }
         }
     }
 
-    TileBase TileToDrawForTime(float time) {
+    Tile TileToDrawForTime(float time) {
         if (time > 9) {
             return crop2;
         } else if (time > 6) {
@@ -57,13 +50,7 @@ public class CropController : MonoBehaviour
         }
     }
 
-    void PickedUp() {
-        objectsNonColliding.SetTile(tileLocation.Value, null);
-        tileLocation = null;
-    }
-
-    void Placed(Vector3Int newTileLocation) {
-        tileLocation = newTileLocation;
-        objectsNonColliding.SetTile(tileLocation.Value, TileToDrawForTime(growthTime));
+    public bool isCropCompleted() {
+        return growthTime > 6; 
     }
 }
