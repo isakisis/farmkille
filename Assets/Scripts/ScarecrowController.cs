@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using static PickUpBehaviour;
 
 public class ScarecrowController : MonoBehaviour
 {

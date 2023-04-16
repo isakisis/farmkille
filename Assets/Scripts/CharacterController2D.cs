@@ -62,7 +62,7 @@ public class CharacterController2D : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E)) {
             if (heldItem) {
-                InteractionBehaviour interaction = heldItem.GetComponent<InteractionBehaviour>();
+                Interactable interaction = heldItem.GetComponent<Interactable>();
                 if (interaction != null) {
                     interaction.Action(locationOnMap);
                 }
@@ -88,32 +88,25 @@ public class CharacterController2D : MonoBehaviour
 
                             heldItem = null;
                             heldItemSpriteRenderer.sprite = null;
-                            heldItemSpriteRenderer.enabled = false;
 
                             audioSource.PlayOneShot(deliverSfx);
                         }
                     } 
-                } else if (gridManager.IsLocationEmpty(locationOnMap)) {
-                    bool succeeded = gridManager.PutDown(locationOnMap, heldItem);
+                } else {
+                    bool succeeded = gridManager.PutDownOnGrid(locationOnMap, heldItem);
                     if (succeeded) {
                         heldItem = null;
                         heldItemSpriteRenderer.sprite = null;
-                        heldItemSpriteRenderer.enabled = false;
                     }
                 } 
             } else {
-                if (!heldItem) {
-                    heldItem = gridManager.PickUp(locationOnMap);
-                    if (heldItem) {
-                        PickUpBehaviour pickUpBehaviour = heldItem.GetComponent<PickUpBehaviour>();
-                        Sprite s = pickUpBehaviour.getSprite();
-                        Debug.Log("heldItemSpriteRenderer.sprite =");
-                        Debug.Log(s);
-                        heldItemSpriteRenderer.sprite = s;
-                        heldItemSpriteRenderer.enabled = true;
+                heldItem = gridManager.PickUpFromGrid(locationOnMap);
+                if (heldItem) {
+                    PickUpable pickUpBehaviour = heldItem.GetComponent<PickUpable>();
+                    Sprite s = pickUpBehaviour.GetSprite();
+                    heldItemSpriteRenderer.sprite = s;
 
-                        audioSource.PlayOneShot(pickupSfx);
-                    }
+                    audioSource.PlayOneShot(pickupSfx);
                 }
             }
         };

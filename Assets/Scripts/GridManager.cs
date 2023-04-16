@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip plantSeed;
 
-    Dictionary<Vector3Int, GameObject> locationToEntity;
+    Dictionary<Vector3Int, GameObject> locationToEntity = new Dictionary<Vector3Int, GameObject>();
 
     void Start()
     {
@@ -33,11 +33,6 @@ public class GridManager : MonoBehaviour
         AddSeedBagAt(WorldToCell(seedbagSpawnLocation.transform.position));
         AddHoeAt(WorldToCell(hoeSpawnLocation.transform.position));
     }
-
-    GridManager() {
-        locationToEntity = new Dictionary<Vector3Int, GameObject>();
-    }
-
 
     public Vector3Int WorldToCell(Vector3 position) {
         return objectsNonColliding.layoutGrid.WorldToCell(position);
@@ -92,11 +87,11 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public GameObject PickUp(Vector3Int location) {
+    public GameObject PickUpFromGrid(Vector3Int location) {
         if (locationToEntity.ContainsKey(location)) {
             GameObject someObject = locationToEntity[location];
-            PickUpBehaviour pickUpBehaviour = someObject.GetComponent<PickUpBehaviour>();
-            if (pickUpBehaviour) {
+            PickUpable pickUpBehaviour = someObject.GetComponent<PickUpable>();
+            if (pickUpBehaviour != null) {
                 locationToEntity.Remove(location);
                 pickUpBehaviour.PickUp();
                 return someObject;
@@ -106,13 +101,13 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
-    public bool PutDown(Vector3Int location, GameObject someObject) {
+    public bool PutDownOnGrid(Vector3Int location, GameObject someObject) {
         if (!locationToEntity.ContainsKey(location)) {
-            PickUpBehaviour pickUpBehaviour = someObject.GetComponent<PickUpBehaviour>();
-            if (pickUpBehaviour) {
+            PickUpable pickUpBehaviour = someObject.GetComponent<PickUpable>();
+            if (pickUpBehaviour != null) {
                 locationToEntity.Add(location, someObject);
                 pickUpBehaviour.PutDown(location);
-                return someObject;
+                return true;
             }
         }
 
