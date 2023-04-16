@@ -50,13 +50,24 @@ public class CharacterController2D : MonoBehaviour
             Debug.Log(locationOnMap);
 
             if (heldItem) {
-                if (gridManager.isLocationBarn(locationOnMap))
-                {
-                    scoreManager.UpdateScore(10);
+                if (gridManager.isLocationBarn(locationOnMap)) {
+                    if (isHeldItemCrop())
+                    {
+                        //Debug.Log("Held item is crop");
 
-                    heldItem = null;
-                    heldItemSpriteRenderer.sprite = null;
-                    heldItemSpriteRenderer.enabled = false;
+                        CropController cropController = heldItem.GetComponentInChildren<CropController>();
+
+                        //Debug.Log(cropController.isCropCompleted());
+
+                        if (cropController.isCropCompleted())
+                        {
+                            scoreManager.UpdateScore(10);
+
+                            heldItem = null;
+                            heldItemSpriteRenderer.sprite = null;
+                            heldItemSpriteRenderer.enabled = false;
+                        }
+                    } 
                 } else if (gridManager.IsLocationEmpty(locationOnMap)) {
                     bool succeeded = gridManager.PutDown(locationOnMap, heldItem);
                     if (succeeded) {
@@ -100,6 +111,10 @@ public class CharacterController2D : MonoBehaviour
             animator.SetFloat("lastHorizontal", horizontal);
             animator.SetFloat("lastVertical", vertical);
         }
+    }
+
+    private bool isHeldItemCrop() {
+        return heldItem.GetComponentInChildren<CropController>() != null;
     }
 }
 

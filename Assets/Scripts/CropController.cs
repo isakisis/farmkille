@@ -49,4 +49,8 @@ public class CropController : MonoBehaviour
             return crop0;
         }
     }
+
+    public bool isCropCompleted() {
+        return growthTime > 6; 
+    }
 }
