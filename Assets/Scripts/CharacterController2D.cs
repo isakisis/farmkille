@@ -16,6 +16,10 @@ public class CharacterController2D : MonoBehaviour
     GameObject heldItem;
     SpriteRenderer heldItemSpriteRenderer;
 
+    public AudioSource audioSource;
+    public AudioClip pickupSfx;
+    public AudioClip deliverSfx;
+
     [SerializeField] float pickUpOffset = -0.5f;
 
     public ScoreManager scoreManager;
@@ -66,6 +70,8 @@ public class CharacterController2D : MonoBehaviour
                             heldItem = null;
                             heldItemSpriteRenderer.sprite = null;
                             heldItemSpriteRenderer.enabled = false;
+
+                            audioSource.PlayOneShot(deliverSfx);
                         }
                     } 
                 } else if (gridManager.IsLocationEmpty(locationOnMap)) {
@@ -89,6 +95,8 @@ public class CharacterController2D : MonoBehaviour
                         heldItemSpriteRenderer.sprite = s;
                         heldItemSpriteRenderer.enabled = true;
                     }
+
+                    audioSource.PlayOneShot(pickupSfx);
                 }
             }
         };
