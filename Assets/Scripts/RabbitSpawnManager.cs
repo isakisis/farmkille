@@ -5,6 +5,7 @@ using UnityEngine;
 public class RabbitSpawnManager : MonoBehaviour
 {
     public GameObject enemyRabbit;
+    public GameObject grid;
     float time = 0;
     float spawnDelay = 4;
     int maxRabbits = 6;
@@ -20,7 +21,8 @@ public class RabbitSpawnManager : MonoBehaviour
         while(numRabbits <= maxRabbits)
         {
             Vector3 spawnVector = new Vector3(Random.Range(-9.5f, 9.5f), -5f, 0);
-            Instantiate(enemyRabbit, spawnVector, Quaternion.identity);
+            var rabbit = Instantiate(enemyRabbit, spawnVector, Quaternion.identity);
+            rabbit.transform.parent = grid.transform;
             numRabbits++;
             yield return new WaitForSeconds(spawnDelay);
         }
