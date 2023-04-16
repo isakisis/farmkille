@@ -2712,9 +2712,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  gridManager: {fileID: 156744802}
   lastMotionVector: {x: 0, y: 0}
   moving: 0
-  gridManager: {fileID: 156744802}
 --- !u!50 &1938322473
 Rigidbody2D:
   serializedVersion: 4
