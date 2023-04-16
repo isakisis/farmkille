@@ -13,38 +13,14 @@ public class ScarecrowController : MonoBehaviour
     Vector3Int? tileLocation;
 
     [SerializeField] AnimatedTile scarecrowTile;
+    TiledObjectPickupBehaviour tiledObjectPickupBehaviour;
 
     // Start is called before the first frame update
     void Start()
     {
-        PickUpBehaviour pickUpBehaviour = GetComponent<PickUpBehaviour>();
-        pickUpBehaviour.pickUp = PickedUp;
-        pickUpBehaviour.putDown = Placed;
-        pickUpBehaviour.getSprite = GetSprite;
-
-        tileLocation = gridManager.WorldToCell(transform.position);
-        if (tileLocation.HasValue)
-        {
-            objectsNonColliding.SetTile(tileLocation.Value, scarecrowTile);
-        }
+        tiledObjectPickupBehaviour = GetComponent<TiledObjectPickupBehaviour>();
+        tiledObjectPickupBehaviour.tilemap = objectsNonColliding;
+        tiledObjectPickupBehaviour.placed = true;
+        tiledObjectPickupBehaviour.SetTile(scarecrowTile);
     }
-
-
-    Sprite GetSprite()
-    {
-        return scarecrowTile.m_AnimatedSprites[0];
-    }
-
-    void PickedUp()
-    {
-        objectsNonColliding.SetTile(tileLocation.Value, null);
-        tileLocation = null;
-    }
-
-    void Placed(Vector3Int newTileLocation)
-    {
-        tileLocation = newTileLocation;
-        objectsNonColliding.SetTile(tileLocation.Value, scarecrowTile);
-    }
-
 }

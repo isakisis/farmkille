@@ -12,6 +12,10 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] GameObject crop;
     [SerializeField] GameObject scarecrow;
+    [SerializeField] GameObject seedBag;
+
+    [SerializeField] GameObject scarecrowSpawnLocation;
+    [SerializeField] GameObject seedbagSpawnLocation;
 
     Dictionary<Vector3Int, GameObject> locationToEntity;
 

@@ -12,36 +12,28 @@ public class CropController : MonoBehaviour
     [SerializeField] Tile crop1;
     [SerializeField] Tile crop2;
 
-    Vector3Int? tileLocation;
     float growthTime = 0;
+    TiledObjectPickupBehaviour tiledObjectPickupBehaviour;
 
     // Start is called before the first frame update
     void Start()
     {
-        PickUpBehaviour pickUpBehaviour = GetComponent<PickUpBehaviour>();
-        pickUpBehaviour.pickUp = PickedUp;
-        pickUpBehaviour.putDown = Placed;
-        pickUpBehaviour.getSprite = GetSprite;
-        tileLocation = gridManager.WorldToCell(transform.position);
-        if (tileLocation.HasValue) {
-            objectsNonColliding.SetTile(tileLocation.Value, crop0);
-        }
+        tiledObjectPickupBehaviour = GetComponent<TiledObjectPickupBehaviour>();
+        tiledObjectPickupBehaviour.tilemap = objectsNonColliding;
+        tiledObjectPickupBehaviour.placed = true;
+        tiledObjectPickupBehaviour.SetTile(crop0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (tileLocation.HasValue) {
+        if (tiledObjectPickupBehaviour.placed) {
             Tile prevTile = TileToDrawForTime(growthTime);
             growthTime += Time.deltaTime; 
             Tile currTile = TileToDrawForTime(growthTime);
 
             if (currTile != prevTile) {
-                objectsNonColliding.SetTile(tileLocation.Value, currTile);
-
-                if (currTile == null) {
-                    Destroy(gameObject);
-                }
+                tiledObjectPickupBehaviour.SetTile(currTile);
             }
         }
     }
@@ -56,19 +48,5 @@ public class CropController : MonoBehaviour
         } else {
             return crop0;
         }
-    }
-
-    Sprite GetSprite() {
-        return TileToDrawForTime(growthTime).sprite;
-    }
-
-    void PickedUp() {
-        objectsNonColliding.SetTile(tileLocation.Value, null);
-        tileLocation = null;
-    }
-
-    void Placed(Vector3Int newTileLocation) {
-        tileLocation = newTileLocation;
-        objectsNonColliding.SetTile(tileLocation.Value, TileToDrawForTime(growthTime));
     }
 }
