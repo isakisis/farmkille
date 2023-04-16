@@ -15,9 +15,6 @@ public class CropController : MonoBehaviour
     Vector3Int? tileLocation;
     float growthTime = 0;
 
-    public CropController() {
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -63,7 +60,6 @@ public class CropController : MonoBehaviour
     void PickedUp() {
         objectsNonColliding.SetTile(tileLocation.Value, null);
         tileLocation = null;
-        Destroy(gameObject);
     }
 
     void Placed(Vector3Int newTileLocation) {

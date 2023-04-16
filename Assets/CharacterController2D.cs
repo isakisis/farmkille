@@ -12,6 +12,7 @@ public class CharacterController2D : MonoBehaviour
     Rigidbody2D rigidbody2d;
     Animator animator;
     public bool moving;
+    GameObject heldItem;
 
     void Awake()
     {
@@ -31,10 +32,19 @@ public class CharacterController2D : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
-            if (gridManager.IsLocationEmpty(locationOnMap)) {
-                gridManager.AddCropAt(locationOnMap);
+            if (heldItem) {
+                if (gridManager.IsLocationEmpty(locationOnMap)) {
+                    bool succeeded = gridManager.PutDown(locationOnMap, heldItem);
+                    if (succeeded) {
+                        heldItem = null;
+                    }
+                }
             } else {
-                GameObject pickedUp = gridManager.PickUp(locationOnMap);
+                if (gridManager.IsLocationEmpty(locationOnMap)) {
+                    gridManager.AddCropAt(locationOnMap);
+                } else if (!heldItem) {
+                    heldItem = gridManager.PickUp(locationOnMap);
+                }
             }
         };
 

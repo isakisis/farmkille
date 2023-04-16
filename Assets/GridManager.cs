@@ -46,6 +46,19 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    public bool PutDown(Vector3Int location, GameObject someObject) {
+        if (!locationToEntity.ContainsKey(location)) {
+            PickUpBehaviour pickUpBehaviour = someObject.GetComponent<PickUpBehaviour>();
+            if (pickUpBehaviour) {
+                locationToEntity.Add(location, someObject);
+                pickUpBehaviour.PutDown(location);
+                return someObject;
+            }
+        }
+
+        return false;
+    }
+
     public bool IsLocationEmpty(Vector3Int location) {
         return !objectsNonColliding.HasTile(location) && !objectsColliding.HasTile(location);
     }
