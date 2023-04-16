@@ -8,6 +8,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] Tilemap ground;
     [SerializeField] Tilemap objectsNonColliding;
     [SerializeField] Tilemap objectsColliding;
+    [SerializeField] Tilemap barn;
 
     [SerializeField] GameObject crop;
 
@@ -61,5 +62,10 @@ public class GridManager : MonoBehaviour
 
     public bool IsLocationEmpty(Vector3Int location) {
         return !objectsNonColliding.HasTile(location) && !objectsColliding.HasTile(location);
+    }
+
+    public bool isLocationBarn(Vector3Int location) {
+        return barn.HasTile(location);
+
     }
 }
