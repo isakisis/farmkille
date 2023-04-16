@@ -1,16 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
 using UnityEngine.Tilemaps;
-using static PickUpBehaviour;
+using UnityEngine;
 
-public class ScarecrowController : MonoBehaviour
+public class SeedBagController : MonoBehaviour
 {
     [SerializeField] public GridManager gridManager;
     [SerializeField] public Tilemap objectsNonColliding;
 
-    [SerializeField] AnimatedTile scarecrowTile;
+    [SerializeField] Tile seedBagTile;
     TiledObjectPickupBehaviour tiledObjectPickupBehaviour;
 
     // Start is called before the first frame update
@@ -19,6 +17,6 @@ public class ScarecrowController : MonoBehaviour
         tiledObjectPickupBehaviour = GetComponent<TiledObjectPickupBehaviour>();
         tiledObjectPickupBehaviour.tilemap = objectsNonColliding;
         tiledObjectPickupBehaviour.placed = true;
-        tiledObjectPickupBehaviour.SetTile(scarecrowTile);
+        tiledObjectPickupBehaviour.SetTile(seedBagTile);
     }
 }

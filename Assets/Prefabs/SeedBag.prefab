@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5631622422698589841}
   - component: {fileID: 5631622422698589840}
   - component: {fileID: 5631622422698589843}
+  - component: {fileID: -2170758375162280945}
   m_Layer: 0
   m_Name: SeedBag
   m_TagString: Untagged
@@ -57,5 +58,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbf90d81f8749caaa368d9bdcb0bc8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: 5e0e54683dd9f4ae9847b68af5881de1, type: 2}
+  tile: {fileID: 0}
+  placed: 0
   tilemap: {fileID: 0}
+--- !u!114 &-2170758375162280945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631622422698589842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f9186c75917ce5d8ac134652011de83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridManager: {fileID: 0}
+  objectsNonColliding: {fileID: 0}
+  seedBagTile: {fileID: 11400000, guid: 0bce8471dd93201689daeb5b0b8ddb3c, type: 2}

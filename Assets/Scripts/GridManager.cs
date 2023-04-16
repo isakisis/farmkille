@@ -21,7 +21,8 @@ public class GridManager : MonoBehaviour
 
     void Start()
     {
-        AddScarecrowAt(new Vector3Int(-5, -1));
+        AddScarecrowAt(WorldToCell(scarecrowSpawnLocation.transform.position));
+        AddSeedBagAt(WorldToCell(seedbagSpawnLocation.transform.position));
     }
 
     GridManager() {
@@ -39,6 +40,16 @@ public class GridManager : MonoBehaviour
         CropController cropController = newObject.GetComponent<CropController>();
         cropController.objectsNonColliding = objectsNonColliding;
         cropController.gridManager = this;
+
+        locationToEntity.Add(location, newObject);
+    }
+
+    public void AddSeedBagAt(Vector3Int location) {
+        Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
+        GameObject newObject = Instantiate(seedBag, worldLocation, Quaternion.identity);
+        SeedBagController seedBagController = newObject.GetComponent<SeedBagController>();
+        seedBagController.objectsNonColliding = objectsNonColliding;
+        seedBagController.gridManager = this;
 
         locationToEntity.Add(location, newObject);
     }
