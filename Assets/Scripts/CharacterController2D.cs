@@ -55,6 +55,8 @@ public class CharacterController2D : MonoBehaviour
                     scoreManager.UpdateScore(10);
 
                     heldItem = null;
+                    heldItemSpriteRenderer.sprite = null;
+                    heldItemSpriteRenderer.enabled = false;
                 } else if (gridManager.IsLocationEmpty(locationOnMap)) {
                     bool succeeded = gridManager.PutDown(locationOnMap, heldItem);
                     if (succeeded) {
@@ -64,7 +66,7 @@ public class CharacterController2D : MonoBehaviour
                     }
                 } 
             } else {
-                if (gridManager.IsLocationEmpty(locationOnMap)) {
+                if (gridManager.IsLocationEmpty(locationOnMap) && !gridManager.isLocationBarn(locationOnMap)) {
                     gridManager.AddCropAt(locationOnMap);
                 } else if (!heldItem) {
                     heldItem = gridManager.PickUp(locationOnMap);
