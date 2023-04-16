@@ -20,7 +20,7 @@ public class RabbitSpawnManager : MonoBehaviour
         {
             Vector3 spawnVector = new Vector3(Random.Range(-10f, 10f), -6, 0);
             Instantiate(enemyRabbit, spawnVector, Quaternion.identity);
-            yield return new waitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 }
