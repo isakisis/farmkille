@@ -10,12 +10,17 @@ public class GridManager : MonoBehaviour
     [SerializeField] Tilemap objectsColliding;
     [SerializeField] Tilemap barn;
 
+    [SerializeField] TileBase dirt;
+    [SerializeField] TileBase soil;
+
     [SerializeField] GameObject crop;
     [SerializeField] GameObject scarecrow;
     [SerializeField] GameObject seedBag;
+    [SerializeField] GameObject hoe;
 
     [SerializeField] GameObject scarecrowSpawnLocation;
     [SerializeField] GameObject seedbagSpawnLocation;
+    [SerializeField] GameObject hoeSpawnLocation;
 
     Dictionary<Vector3Int, GameObject> locationToEntity;
 
@@ -23,6 +28,7 @@ public class GridManager : MonoBehaviour
     {
         AddScarecrowAt(WorldToCell(scarecrowSpawnLocation.transform.position));
         AddSeedBagAt(WorldToCell(seedbagSpawnLocation.transform.position));
+        AddHoeAt(WorldToCell(hoeSpawnLocation.transform.position));
     }
 
     GridManager() {
@@ -54,6 +60,16 @@ public class GridManager : MonoBehaviour
         locationToEntity.Add(location, newObject);
     }
 
+    public void AddHoeAt(Vector3Int location) {
+        Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
+        GameObject newObject = Instantiate(hoe, worldLocation, Quaternion.identity);
+        HoeController hoeController = newObject.GetComponent<HoeController>();
+        hoeController.objectsNonColliding = objectsNonColliding;
+        hoeController.gridManager = this;
+
+        locationToEntity.Add(location, newObject);
+    }
+
     public void AddScarecrowAt(Vector3Int location)
     {
         Vector3 worldLocation = objectsNonColliding.layoutGrid.CellToWorld(location);
@@ -63,6 +79,12 @@ public class GridManager : MonoBehaviour
         scarecrowController.gridManager = this;
 
         locationToEntity.Add(location, newObject);
+    }
+
+    public void ChangeDirtToSoil(Vector3Int location) {
+        if (ground.GetTile(location) == dirt) {
+            ground.SetTile(location, soil);
+        }
     }
 
     public GameObject PickUp(Vector3Int location) {

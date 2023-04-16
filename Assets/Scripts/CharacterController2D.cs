@@ -49,6 +49,16 @@ public class CharacterController2D : MonoBehaviour
             //Debug.Log(gridManager.isLocationBarn(locationOnMap));
         }
 
+        if (Input.GetKeyDown(KeyCode.E)) {
+            if (heldItem) {
+                InteractionBehaviour interaction = heldItem.GetComponent<InteractionBehaviour>();
+                if (interaction != null) {
+                    Vector3Int locationOnMap = gridManager.WorldToCell(new Vector3(transform.position.x, transform.position.y + pickUpOffset));
+                    interaction.Action(locationOnMap);
+                }
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Space)) {
             Vector3Int locationOnMap = gridManager.WorldToCell(new Vector3(transform.position.x, transform.position.y + pickUpOffset));
             Debug.Log(locationOnMap);
@@ -83,9 +93,7 @@ public class CharacterController2D : MonoBehaviour
                     }
                 } 
             } else {
-                if (gridManager.IsLocationEmpty(locationOnMap) && !gridManager.isLocationBarn(locationOnMap)) {
-                    gridManager.AddCropAt(locationOnMap);
-                } else if (!heldItem) {
+                if (!heldItem) {
                     heldItem = gridManager.PickUp(locationOnMap);
                     if (heldItem) {
                         PickUpBehaviour pickUpBehaviour = heldItem.GetComponent<PickUpBehaviour>();
