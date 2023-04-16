@@ -102,9 +102,9 @@ public class CharacterController2D : MonoBehaviour
                         Debug.Log(s);
                         heldItemSpriteRenderer.sprite = s;
                         heldItemSpriteRenderer.enabled = true;
-                    }
 
-                    audioSource.PlayOneShot(pickupSfx);
+                        audioSource.PlayOneShot(pickupSfx);
+                    }
                 }
             }
         };
