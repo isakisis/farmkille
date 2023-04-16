@@ -8,7 +8,7 @@ public class RabbitSpawnManager : MonoBehaviour
     public GameObject grid;
     float time = 0;
     float spawnDelay = 4;
-    int maxRabbits = 6;
+    int maxRabbits = 7;
 
     void Start()
     {

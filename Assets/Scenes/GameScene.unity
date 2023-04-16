@@ -803,6 +803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRabbit: {fileID: 9074366212673338368, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
+  grid: {fileID: 1676948665}
 --- !u!4 &1128056270
 Transform:
   m_ObjectHideFlags: 0
@@ -815,8 +816,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1676948667}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1138683204
 PrefabInstance:
@@ -827,7 +828,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5941652535892165527, guid: f56d97ee8be174d65b66d6c4bc7c90a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3576,7 +3577,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1676948667}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!483693784 &1564915895
 TilemapRenderer:
@@ -3710,7 +3711,6 @@ Transform:
   - {fileID: 311149515}
   - {fileID: 2050212356}
   - {fileID: 1828899468}
-  - {fileID: 1128056270}
   - {fileID: 1492465900}
   - {fileID: 1564915894}
   m_Father: {fileID: 0}
