@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,37 +14,64 @@ public class CharacterController2D : MonoBehaviour
     Animator animator;
     public bool moving;
     GameObject heldItem;
+    SpriteRenderer heldItemSpriteRenderer;
+
+    public ScoreManager scoreManager;
 
     void Awake()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();  
         animator = GetComponent<Animator>();  
+        heldItemSpriteRenderer = GetComponentsInChildren<SpriteRenderer>(true).Where(
+            comp => comp.name == "HeldItem"
+        ).First();
     }
 
     private void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+
         
         Vector2 motionVector = new Vector2(
             horizontal, 
             vertical
         ).normalized;
 
+        if (gridManager != null) {
+            Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
+            Debug.Log(gridManager.isLocationBarn(locationOnMap));
+        }
+
         if (Input.GetKeyDown(KeyCode.Space)) {
             Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
             if (heldItem) {
-                if (gridManager.IsLocationEmpty(locationOnMap)) {
+                if (gridManager.isLocationBarn(locationOnMap))
+                {
+                    scoreManager.UpdateScore(10);
+
+                    heldItem = null;
+                } else if (gridManager.IsLocationEmpty(locationOnMap)) {
                     bool succeeded = gridManager.PutDown(locationOnMap, heldItem);
                     if (succeeded) {
                         heldItem = null;
+                        heldItemSpriteRenderer.sprite = null;
+                        heldItemSpriteRenderer.enabled = false;
                     }
-                }
+                } 
             } else {
                 if (gridManager.IsLocationEmpty(locationOnMap)) {
                     gridManager.AddCropAt(locationOnMap);
                 } else if (!heldItem) {
                     heldItem = gridManager.PickUp(locationOnMap);
+                    if (heldItem) {
+                        PickUpBehaviour pickUpBehaviour = heldItem.GetComponent<PickUpBehaviour>();
+                        Sprite s = pickUpBehaviour.getSprite();
+                        Debug.Log("heldItemSpriteRenderer.sprite =");
+                        Debug.Log(s);
+                        heldItemSpriteRenderer.sprite = s;
+                        heldItemSpriteRenderer.enabled = true;
+                    }
                 }
             }
         };
