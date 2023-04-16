@@ -8,9 +8,10 @@ public class CharacterController2D : MonoBehaviour
 {
     [SerializeField] float speed = 2f;
     [SerializeField] GridManager gridManager;
-
+    public Vector2 lastMotionVector;
     Rigidbody2D rigidbody2d;
     Animator animator;
+    public bool moving;
 
     void Awake()
     {
@@ -20,21 +21,41 @@ public class CharacterController2D : MonoBehaviour
 
     private void Update()
     {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        
         Vector2 motionVector = new Vector2(
-            Input.GetAxisRaw("Horizontal"), 
-            Input.GetAxisRaw("Vertical")
+            horizontal, 
+            vertical
         ).normalized;
 
         if (Input.GetKeyDown(KeyCode.Space)) {
             Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
             if (gridManager.IsLocationEmpty(locationOnMap)) {
                 gridManager.AddCropAt(locationOnMap);
+            } else {
+                GameObject pickedUp = gridManager.PickUp(locationOnMap);
             }
         };
 
         rigidbody2d.velocity = motionVector * speed;
 
-        animator.SetFloat("horizontal", Input.GetAxisRaw("Horizontal"));
-        animator.SetFloat("vertical", Input.GetAxisRaw("Vertical"));
+        animator.SetFloat("horizontal", horizontal);
+        animator.SetFloat("vertical", vertical);
+
+        moving = horizontal != 0 || vertical != 0;
+        animator.SetBool("moving", moving);
+        
+        if (horizontal != 0 || vertical != 0)
+        {
+            lastMotionVector = new Vector2(
+                horizontal,
+                vertical
+            ).normalized;
+            
+            animator.SetFloat("lastHorizontal", horizontal);
+            animator.SetFloat("lastVertical", vertical);
+        }
     }
 }
+

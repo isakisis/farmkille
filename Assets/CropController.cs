@@ -12,8 +12,8 @@ public class CropController : MonoBehaviour
     [SerializeField] TileBase crop1;
     [SerializeField] TileBase crop2;
 
-    Vector3Int tileLocation;
-    float time = 0;
+    Vector3Int? tileLocation;
+    float growthTime = 0;
 
     public CropController() {
     }
@@ -21,24 +21,53 @@ public class CropController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PickUpBehaviour pickUpBehaviour = GetComponent<PickUpBehaviour>();
+        pickUpBehaviour.pickUp = PickedUp;
+        pickUpBehaviour.putDown = Placed;
         tileLocation = gridManager.WorldToCell(transform.position);
-        objectsNonColliding.SetTile(tileLocation, crop0);
+        if (tileLocation.HasValue) {
+            objectsNonColliding.SetTile(tileLocation.Value, crop0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        float newTime = time + Time.deltaTime; 
+        if (tileLocation.HasValue) {
+            TileBase prevTile = TileToDrawForTime(growthTime);
+            growthTime += Time.deltaTime; 
+            TileBase currTile = TileToDrawForTime(growthTime);
 
-        if (newTime > 9 && time <= 9) {
-            objectsNonColliding.SetTile(tileLocation, null);
-            Destroy(gameObject);
-        } else if (newTime > 6 && time <= 6) {
-            objectsNonColliding.SetTile(tileLocation, crop2);
-        } else if (newTime > 3 && time <= 3) {
-            objectsNonColliding.SetTile(tileLocation, crop1);
+            if (currTile != prevTile) {
+                objectsNonColliding.SetTile(tileLocation.Value, currTile);
+
+                if (currTile == null) {
+                    Destroy(gameObject);
+                }
+            }
         }
+    }
 
-        time = newTime;
+    TileBase TileToDrawForTime(float time) {
+        if (time > 9) {
+            return crop2;
+        } else if (time > 6) {
+            return crop2;
+        } else if (time > 3) {
+            return crop1;
+        } else {
+            return crop0;
+        }
+    }
+
+    void PickedUp() {
+        objectsNonColliding.SetTile(tileLocation.Value, null);
+        tileLocation = null;
+        Destroy(gameObject);
+    }
+
+    void Placed(Vector3Int newTileLocation) {
+        tileLocation = newTileLocation;
+        objectsNonColliding.SetTile(tileLocation.Value, TileToDrawForTime(growthTime));
     }
 }
