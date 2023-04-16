@@ -16,6 +16,8 @@ public class CharacterController2D : MonoBehaviour
     GameObject heldItem;
     SpriteRenderer heldItemSpriteRenderer;
 
+    [SerializeField] float pickUpOffset = -0.5f;
+
     public ScoreManager scoreManager;
 
     void Awake()
@@ -40,11 +42,13 @@ public class CharacterController2D : MonoBehaviour
 
         if (gridManager != null) {
             Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
-            Debug.Log(gridManager.isLocationBarn(locationOnMap));
+            //Debug.Log(gridManager.isLocationBarn(locationOnMap));
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Vector3Int locationOnMap = gridManager.WorldToCell(transform.position);
+            Vector3Int locationOnMap = gridManager.WorldToCell(new Vector3(transform.position.x, transform.position.y + pickUpOffset));
+            Debug.Log(locationOnMap);
+
             if (heldItem) {
                 if (gridManager.isLocationBarn(locationOnMap))
                 {
